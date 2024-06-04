@@ -40,8 +40,8 @@ const SigninForm = () => {
   // const searchParams = useSearchParams();
   const errorParams = 'searchParams.get("error");';
   useEffect(() => {
-    if (errorParams == "OAuthAccountNotLinked")
-      setError("Email already in use");
+    // if (errorParams == "OAuthAccountNotLinked")
+    setError("Email already in use");
   }, [errorParams]);
 
   const form = useForm<z.infer<typeof signinForm>>({
