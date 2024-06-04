@@ -1,8 +1,7 @@
 import NextAuth from "next-auth";
 
-import Credentials from "next-auth/providers/credentials";
-import Google from "next-auth/providers/google";
-import { getUserByEmail, getUserById } from "./data/user";
+import authConfig from "./auth.config";
+import { getUserByEmail } from "./data/user";
 import connectDB from "./mongoose/db";
 import Users from "./mongoose/models/user";
 
@@ -57,17 +56,5 @@ export const {
     signIn: "/auth/sign-in",
     error: "/auth/error",
   },
-  providers: [
-    Credentials({
-      async authorize(credentials) {
-        const exisitingUser = await getUserByEmail(credentials.email as string);
-        return exisitingUser;
-      },
-    }),
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
-  ],
-  // ...authConfig,
+  ...authConfig,
 });
