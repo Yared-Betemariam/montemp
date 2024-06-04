@@ -2,14 +2,16 @@ import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import { getUserByEmail } from "./data/user";
+import { getUserByEmailAPI } from "./data/api";
 
 export default {
   providers: [
     Credentials({
       async authorize(credentials) {
         // const exisitingUser = await getUserByEmail(credentials.email as string);
+        const user = await getUserByEmailAPI(credentials.email as string);
         // return exisitingUser;
-        return credentials;
+        return user;
       },
     }),
     Google({
