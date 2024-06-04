@@ -7,8 +7,9 @@ export default {
   providers: [
     Credentials({
       async authorize(credentials) {
-        const exisitingUser = await getUserByEmail(credentials.email as string);
-        return exisitingUser;
+        // const exisitingUser = await getUserByEmail(credentials.email as string);
+        // return exisitingUser;
+        return credentials;
       },
     }),
     Google({
