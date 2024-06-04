@@ -1,6 +1,7 @@
 import { auth } from "./auth";
 import {
   apiAuthPrefix,
+  apiAuthUserPrefix,
   authRoutes,
   defauthLoginRedirect,
   publicRoutes,
@@ -10,7 +11,9 @@ export default auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
 
-  const isAuthApiRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
+  const isAuthApiRoute =
+    nextUrl.pathname.startsWith(apiAuthPrefix) ||
+    nextUrl.pathname.startsWith(apiAuthUserPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 

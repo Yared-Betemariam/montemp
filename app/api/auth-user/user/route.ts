@@ -5,14 +5,19 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (req: NextRequest) => {
   try {
+    console.log("alskdldsldjljlkj kl ");
     const searchParams = req.nextUrl.searchParams;
     const query = searchParams.get("email") as string;
+    console.log(query);
     await connectDB();
     let user = await getUserByEmail(query);
     return NextResponse.json(user);
   } catch (error) {
     console.log(error);
-    return NextResponse.json({});
+    return NextResponse.json(
+      { message: "something went wrong" },
+      { status: 500 }
+    );
   }
 };
 

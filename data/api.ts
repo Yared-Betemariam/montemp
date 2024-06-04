@@ -3,12 +3,13 @@ import { User } from "@/mongoose/models/user";
 
 export const getUserByEmailAPI = async (email: string) => {
   try {
-    const res = await fetch(absoulteUrl(`/api/user?email=${email}`), {
+    const res = await fetch(absoulteUrl(`/api/auth-user/user?email=${email}`), {
       method: "GET",
     });
     const data = await res.json();
     return data as User;
   } catch (error) {
+    console.log(error);
     return null;
   }
 };
@@ -23,7 +24,7 @@ export const createUserAPI = async ({
   name?: string;
 }) => {
   try {
-    await fetch(absoulteUrl("/api/user"), {
+    await fetch(absoulteUrl("/api/auth-user/user"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

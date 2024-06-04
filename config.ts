@@ -1,5 +1,5 @@
-export const BASE_URL = "http://localhost:3000";
-export const VERCEL_URL = "";
+export const BASE_URL = process.env.BASE_URL as string;
+export const VERCEL_URL = BASE_URL;
 
 export const absoulteUrl = (path: string) => {
   if (typeof window !== "undefined") return path;

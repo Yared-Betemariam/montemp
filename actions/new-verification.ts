@@ -22,7 +22,7 @@ export const newVerification = async (token: string) => {
         error: "Token has expired!",
       };
 
-    await VerificationTokens.deleteOne({ id: existingToken.id });
+    // await VerificationTokens.deleteOne({ id: existingToken.id });
 
     await signIn("credentials", {
       email: existingToken.email,
