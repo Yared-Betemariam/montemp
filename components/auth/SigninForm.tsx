@@ -37,8 +37,8 @@ const SigninForm = () => {
     return () => clearTimeout(id);
   }, [resendIn]);
 
-  const searchParams = useSearchParams();
-  const errorParams = searchParams.get("error");
+  // const searchParams = useSearchParams();
+  const errorParams = 'searchParams.get("error");';
   useEffect(() => {
     if (errorParams == "OAuthAccountNotLinked")
       setError("Email already in use");

@@ -14,8 +14,8 @@ const NewVerificationForm = () => {
   const [success, setSuccess] = useState<string | undefined>();
   const router = useRouter();
 
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+  // const searchParams = useSearchParams();
+  const token = 'searchParams.get("token")';
 
   const onSubmit = useCallback(() => {
     if (error || success) {
