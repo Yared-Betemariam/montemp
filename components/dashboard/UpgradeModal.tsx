@@ -13,10 +13,10 @@ const UpgradeModal = () => {
       trigger={
         <Button
           variant={"outline"}
-          className="items-center justify-start gap-2 px-3.5 rounded-xl drop-shadow"
+          className="items-center justify-start gap-2 px-3.5 rounded-xl shadow"
         >
           {/* <CreditCard size={18} /> */}
-          <CrownIcon size={18} className="fill-yellow-600 text-yellow-600" />
+          <CrownIcon size={18} className="fill-yellow-500 text-yellow-500" />
           <span>Upgrade</span>
         </Button>
       }

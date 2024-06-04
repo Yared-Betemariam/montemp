@@ -3,7 +3,7 @@
 import { auth } from "@/auth";
 import { pricingPlan as PLANS } from "@/data/website";
 import { stripe } from "@/lib/stripe";
-import Users from "@/mongoose/models/user";
+import Users, { User } from "@/mongoose/models/user";
 
 export const getUserSubscriptionPlan = async () => {
   const authSession = await auth();
@@ -55,6 +55,11 @@ export const getUserSubscriptionPlan = async () => {
       isSubscribed,
       isCanceled,
     },
-    user: dbUser,
+    user: {
+      _id: String(dbUser._id),
+      stripeSubscriptionId: dbUser.stripeSubscriptionId,
+      stripeCurrentPeriodEnd: dbUser.stripeCurrentPeriodEnd,
+      stripeCustomerId: dbUser.stripeCustomerId,
+    } as User,
   };
 };

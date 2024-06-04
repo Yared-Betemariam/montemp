@@ -1,8 +1,7 @@
 import NextAuth from "next-auth";
 
 import authConfig from "./auth.config";
-import { getUserByEmail } from "./data/user";
-import connectDB from "./mongoose/db";
+import { createUserAPI, getUserByEmail, getUserByEmailAPI } from "./data/user";
 import Users from "./mongoose/models/user";
 
 export const {
@@ -22,7 +21,7 @@ export const {
     async jwt({ token }) {
       if (!token.sub) return token;
       try {
-        const user = await getUserByEmail(token.email as string);
+        const user = await getUserByEmailAPI(token.email as string);
         if (!user) return token;
 
         token.picture = user.image;
@@ -36,13 +35,12 @@ export const {
     },
     async signIn({ profile }) {
       try {
-        await connectDB();
-        const user = await getUserByEmail(profile?.email as string);
+        const user = await getUserByEmailAPI(profile?.email as string);
         if (!user) {
-          await Users.create({
-            email: profile?.email,
-            image: profile?.picture,
-            name: profile?.name,
+          await createUserAPI({
+            email: profile?.email || undefined,
+            picture: profile?.picture,
+            name: profile?.name || undefined,
           });
         }
         return true;
