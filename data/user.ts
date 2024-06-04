@@ -29,7 +29,6 @@ export const getUserByEmailAPI = async (email: string) => {
       method: "GET",
     });
     const data = await res.json();
-
     return data as User;
   } catch (error) {
     return null;
