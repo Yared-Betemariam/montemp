@@ -14,15 +14,7 @@ export const getUserByEmailAPI = async (email: string) => {
   }
 };
 
-export const createUserAPI = async ({
-  email,
-  picture,
-  name,
-}: {
-  email?: string;
-  picture?: string;
-  name?: string;
-}) => {
+export const createUserAPI = async ({ email }: { email?: string }) => {
   try {
     await fetch(absoulteUrl("/api/auth-user/user"), {
       method: "POST",
@@ -31,8 +23,6 @@ export const createUserAPI = async ({
       },
       body: JSON.stringify({
         email,
-        picture,
-        name,
       }),
     });
   } catch (error) {

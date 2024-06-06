@@ -2,6 +2,7 @@ import { auth } from "./auth";
 import {
   apiAuthPrefix,
   apiAuthUserPrefix,
+  apiStripe,
   authRoutes,
   defauthLoginRedirect,
   publicRoutes,
@@ -14,10 +15,11 @@ export default auth((req) => {
   const isAuthApiRoute =
     nextUrl.pathname.startsWith(apiAuthPrefix) ||
     nextUrl.pathname.startsWith(apiAuthUserPrefix);
+  const isStripeApiRoute = nextUrl.pathname.startsWith(apiStripe);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
-  if (isAuthApiRoute) return;
+  if (isAuthApiRoute || isStripeApiRoute) return;
   if (isAuthRoute) {
     if (isLoggedIn) {
       return Response.redirect(new URL(defauthLoginRedirect, nextUrl));

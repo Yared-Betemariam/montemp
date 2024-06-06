@@ -6,6 +6,7 @@ import Logo from "../Logo";
 import Account from "../header/Account";
 import { Button } from "../ui/button";
 import UpgradeModal from "./UpgradeModal";
+import { IoIosArrowForward } from "react-icons/io";
 
 const DashboardHeader = () => {
   const pathname = usePathname();
@@ -28,10 +29,8 @@ const DashboardHeader = () => {
             </Link>
           )}
           <Logo lo s />
-          <div className="flex items-center space-x-2 px-1 ">
-            <span className="text-lg font-semibold text-gray-900/80">
-              Dashboard
-            </span>
+          <div className="flex items-center space-x-2 px-1 text-gray-900/85">
+            <span className="text-base font-bold">Dashboard</span>
             {/* { sth && pathname !== "/dashboard" && (
               <>
                 <IoIosArrowForward className="text-base" />
@@ -40,6 +39,12 @@ const DashboardHeader = () => {
                 </span>
               </>
             )} */}
+            {pathname.startsWith("/dashboard/billing") && (
+              <>
+                <IoIosArrowForward className="text-base" />
+                <span className="text-base font-semibold">Billing</span>
+              </>
+            )}
           </div>
         </div>
         <div className="flex items-center space-x-4">

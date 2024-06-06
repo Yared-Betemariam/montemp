@@ -80,11 +80,11 @@ const Header = () => {
             </>
           )}
           {isLoading && (
-            <Avatar className="w-20">
-              <AvatarFallback className="animate-pulse">
+            <Avatar className="w-20 rounded-xl">
+              <AvatarFallback className="animate-pulse rounded-xl">
                 <div
                   role="status"
-                  className="flex items-center justify-center h-full w-full bg-neutral-800/20 rounded-lg"
+                  className="flex items-center justify-center h-full w-full bg-black/10 rounded-lg"
                 ></div>
               </AvatarFallback>
             </Avatar>

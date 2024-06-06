@@ -20,6 +20,7 @@ import CardWrapper from "./CardWrapper";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 
 const SigninForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -71,7 +72,7 @@ const SigninForm = () => {
     <CardWrapper headerLabel="Sign in" showSocial>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col">
             <FormField
               control={form.control}
               name="email"
@@ -90,6 +91,7 @@ const SigninForm = () => {
                 </FormItem>
               )}
             />
+
             {resendIn > 0 && (
               <span className="ml-auto text-[13px] opacity-80">
                 Resend in {resendIn}s
@@ -119,9 +121,10 @@ const SigninForm = () => {
           <Button
             disabled={isPending || resendIn > 0}
             type="submit"
-            className="w-full rounded-full"
+            className="w-full rounded-full space-x-3"
           >
-            {"Sign in"}
+            {isPending && <Loader2 className="animate-spin" size={18} />}
+            {!isPending && <span>Sign in</span>}
           </Button>
         </form>
       </Form>

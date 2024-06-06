@@ -1,29 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import { ArrowRight, CheckIcon } from "lucide-react";
-import { Card } from "../ui/card";
-import { Button } from "../ui/button";
 import { pricingPlan } from "@/data/website";
 import { cn } from "@/lib/utils";
-import { useCurrentUser } from "@/hooks/user";
-import Link from "next/link";
-import { createStripeSession } from "@/actions/stripe";
-import { redirect, useRouter } from "next/navigation";
-import { model } from "mongoose";
+import { CheckIcon } from "lucide-react";
+import { Card } from "../ui/card";
+import UpgradePlan from "./UpgradePlan";
 
 const Pricing = ({ modal }: { modal?: boolean }) => {
-  const { user } = useCurrentUser();
-  const router = useRouter();
-  const handleUpgrade = () => {
-    createStripeSession()
-      .then((data) => {
-        if (data?.url) {
-          router.push(data.url);
-        }
-      })
-      .catch((error) => console.log(error));
-  };
+  let plans = pricingPlan.slice();
+  if (modal) {
+    plans = plans.filter((item) => item.price > 0);
+  }
   return (
     <section
       id="Pricing"
@@ -32,7 +20,9 @@ const Pricing = ({ modal }: { modal?: boolean }) => {
         !modal && "py-24 bg-gray-100 border-y border-primary/50"
       )}
     >
-      <div className="container px-4 md:px-6 flex flex-col gap-12">
+      <div
+        className={cn("px-4 md:px-6 flex flex-col gap-12", !modal && "wrapper")}
+      >
         {!modal && (
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
@@ -51,17 +41,17 @@ const Pricing = ({ modal }: { modal?: boolean }) => {
         )}
         <div
           className={cn(
-            "mx-auto grid max-w-5xl grid-cols-2 gap-12",
-            !modal ? "px-16" : "py-4"
+            "mx-auto grid w-full gap-10",
+            !modal ? "px-6 grid-cols-3" : "py-4 grid-cols-2"
           )}
         >
-          {pricingPlan.map((item) => (
+          {plans.map((item) => (
             <Card
               key={item.desc}
               className={cn(
-                "flex flex-col rounded-3xl border border-gray-200 bg-white p-10 shadow-sm dark:border-gray-800 dark:bg-gray-950 relative drop-shadow-md",
+                "flex flex-col rounded-3xl border border-gray-200 bg-white p-6 shadow-sm xll:p-8 dark:border-gray-800 dark:bg-gray-950 relative drop-shadow-md gap-1",
                 item.tag === "Popular"
-                  ? "border-primary border-2"
+                  ? "ring-[2.5px] ring-primary"
                   : "simpleborder"
               )}
             >
@@ -72,15 +62,24 @@ const Pricing = ({ modal }: { modal?: boolean }) => {
               )}
               <div className="space-y-1">
                 <h3 className="text-2xl font-bold">{item.name}</h3>
-                <p className="text-gray-500 dark:text-gray-400 text-base">
+                <p className="text-gray-900/70 dark:text-gray-400 text-base font-normal">
                   {item.desc}
                 </p>
               </div>
-              <div className="my-4 flex items-end space-x-2">
-                <span className="text-lg font-semibold line-through  opacity-70">
-                  ${item.disCountPrice}
+              <div className="my-4 flex items-end space-x-3">
+                <span className="text-base font-semibold line-through  opacity-70">
+                  ${item.disCountPrice}{" "}
                 </span>
-                <span className="text-4xl font-bold">${item.price}</span>
+                <span className="text-4xl font-bold flex items-end gap-1">
+                  ${item.price}
+                  <span className="text-base font-medium opacity-80">
+                    {item.id === "free"
+                      ? "/forever"
+                      : item.id.startsWith("subscription")
+                      ? "/month"
+                      : item.id.startsWith("oneTimePayment") && "/once"}
+                  </span>
+                </span>
               </div>
               <ul className="mb-8 space-y-1 text-gray-500 dark:text-gray-400 text-base flex-1">
                 {item.features.map((items) => (
@@ -90,33 +89,12 @@ const Pricing = ({ modal }: { modal?: boolean }) => {
                   </li>
                 ))}
               </ul>
-              {user ? (
-                item.price <= 0 ? (
-                  <Link href={"/auth/sign-in"}>
-                    <Button size={"lg"} className="rounded-full w-full">
-                      <span>Get started</span>
-                    </Button>
-                  </Link>
-                ) : (
-                  <Button
-                    onClick={() => handleUpgrade()}
-                    size={"lg"}
-                    className="rounded-full w-full space-x-3"
-                  >
-                    <span>Upgrade now</span>
-                    <ArrowRight size={16} />
-                  </Button>
-                )
-              ) : (
-                <Link href={"/auth/sign-in"}>
-                  <Button size={"lg"} className="rounded-full w-full">
-                    <span>Get started</span>
-                  </Button>
-                </Link>
+              <UpgradePlan plan={item} />
+              {item.id.startsWith("oneTimePayment") && (
+                <span className="text-sm opacity-70 mx-auto">
+                  Pay once. Access forever
+                </span>
               )}
-              <span className="text-sm opacity-70 mx-auto mt-3">
-                Pay once. Access forever
-              </span>
             </Card>
           ))}
         </div>

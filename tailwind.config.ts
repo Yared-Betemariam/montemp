@@ -75,6 +75,9 @@ const config = {
       backgroundImage: {
         pattern: "url('/pattern.png')",
       },
+      screens: {
+        xll: "1408px",
+      },
     },
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],

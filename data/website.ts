@@ -26,17 +26,18 @@ export const TestimonialsData = [
   },
 ];
 
+export const defaultPlanId: string = "free";
+
 export const pricingPlan = [
   {
-    tag: "",
     id: "free",
     name: "Free",
     price: 0,
+    disCountPrice: 0,
     priceIds: {
       test: "",
       production: "",
     },
-    disCountPrice: 0,
     desc: "Start with a taste of Customail",
     features: [
       "5 Projects",
@@ -47,19 +48,37 @@ export const pricingPlan = [
   },
   {
     tag: "Popular",
-    id: "pro",
+    id: "subscription1",
     name: "Pro",
-    price: 24,
+    price: 14,
+    disCountPrice: 28,
     priceIds: {
       test: "price_1PNmsOIwT7blYDqOYdSL34eT",
       production: "",
     },
-    disCountPrice: 48,
     desc: "Unlimited email customization to all your websites",
     features: [
       "Unlimited Projects",
       "Unlimited Templates",
       "Full customization ability",
+      // "100 test email sends per month",
+    ],
+  },
+  {
+    id: "oneTimePayment1",
+    name: "One time payment",
+    price: 169,
+    disCountPrice: 199,
+    priceIds: {
+      test: "price_1POKcrIwT7blYDqOTGbK4yMp",
+      production: "",
+    },
+    desc: "Unlimited email customization to all your websites",
+    features: [
+      "Unlimited Projects",
+      "Unlimited Templates",
+      "Full customization ability",
+      "Only pay once",
       // "100 test email sends per month",
     ],
   },

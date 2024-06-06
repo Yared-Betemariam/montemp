@@ -14,6 +14,7 @@ export const {
     async session({ token, session }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
+        session.user.planId = token.planId as string;
       }
       return session;
     },
@@ -23,8 +24,8 @@ export const {
         const user = await getUserByEmailAPI(token.email as string);
         if (!user) return token;
 
-        token.picture = user.image;
         token.sub = String(user._id);
+        token.planId = String(user.planId);
 
         return token;
       } catch (error) {
@@ -38,8 +39,6 @@ export const {
         if (!user) {
           await createUserAPI({
             email: profile?.email || undefined,
-            picture: profile?.picture,
-            name: profile?.name || undefined,
           });
         }
         return true;

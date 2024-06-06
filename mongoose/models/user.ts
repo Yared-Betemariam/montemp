@@ -1,33 +1,32 @@
 import mongoose, { Document, Model } from "mongoose";
 
 export interface User extends Document {
-  name: string;
   email: string;
-  image: string | undefined;
   stripeCustomerId?: string;
   stripeSubscriptionId?: string;
   stripePriceId?: string;
   stripeCurrentPeriodEnd?: Date;
+  planId?: string;
 }
 
 const userSchema = new mongoose.Schema<User>({
-  name: String,
   email: {
     type: String,
     unique: true,
     required: true,
   },
-  image: String,
   stripeCustomerId: {
     type: String,
-    unique: true,
   },
   stripeSubscriptionId: {
     type: String,
-    unique: true,
   },
   stripePriceId: String,
   stripeCurrentPeriodEnd: Date,
+  planId: {
+    type: String,
+    required: true,
+  },
 });
 
 const Users: Model<User> =
