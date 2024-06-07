@@ -6,12 +6,14 @@ import { cn } from "@/lib/utils";
 import { CheckIcon } from "lucide-react";
 import { Card } from "../ui/card";
 import UpgradePlan from "./UpgradePlan";
+import { useUserPlan } from "@/hooks/user";
 
 const Pricing = ({ modal }: { modal?: boolean }) => {
   let plans = pricingPlan.slice();
   if (modal) {
     plans = plans.filter((item) => item.price > 0);
   }
+  const planId = useUserPlan();
   return (
     <section
       id="Pricing"
@@ -41,15 +43,17 @@ const Pricing = ({ modal }: { modal?: boolean }) => {
         )}
         <div
           className={cn(
-            "mx-auto grid w-full gap-10",
-            !modal ? "px-6 grid-cols-3" : "py-4 grid-cols-2"
+            "mx-auto grid gap-10",
+            !modal
+              ? "px-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+              : "py-4 grid-cols-2"
           )}
         >
           {plans.map((item) => (
             <Card
-              key={item.desc}
+              key={item.id}
               className={cn(
-                "flex flex-col rounded-3xl border border-gray-200 bg-white p-6 shadow-sm xll:p-8 dark:border-gray-800 dark:bg-gray-950 relative drop-shadow-md gap-1",
+                "flex flex-col rounded-3xl border border-gray-200 bg-white p-6 shadow-sm xll:p-8 dark:border-gray-800 dark:bg-gray-950 relative drop-shadow-md gap-1 max-w-[22.5rem]",
                 item.tag === "Popular"
                   ? "ring-[2.5px] ring-primary"
                   : "simpleborder"
@@ -89,10 +93,15 @@ const Pricing = ({ modal }: { modal?: boolean }) => {
                   </li>
                 ))}
               </ul>
-              <UpgradePlan plan={item} />
+              <UpgradePlan disabled={planId == item.id} plan={item} />
               {item.id.startsWith("oneTimePayment") && (
                 <span className="text-sm opacity-70 mx-auto">
                   Pay once. Access forever
+                </span>
+              )}
+              {planId == item.id && (
+                <span className="bg-primary drop-shadow-md simpleborder p-1 rounded-lg opacity-90 ring-2 absolute -right-4 text-gray-50 mr-auto text-xs px-2">
+                  Current Plan
                 </span>
               )}
             </Card>

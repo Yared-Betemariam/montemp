@@ -15,12 +15,8 @@ const userSchema = new mongoose.Schema<User>({
     unique: true,
     required: true,
   },
-  stripeCustomerId: {
-    type: String,
-  },
-  stripeSubscriptionId: {
-    type: String,
-  },
+  stripeCustomerId: String,
+  stripeSubscriptionId: String,
   stripePriceId: String,
   stripeCurrentPeriodEnd: Date,
   planId: {

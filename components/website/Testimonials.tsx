@@ -20,11 +20,11 @@ const Testimonials = () => {
             </p>
           </div>
         </div>
-        <div className="mx-auto grid items-start gap-8 sm:max-w-3xl grid-cols-2">
+        <div className="mx-auto grid items-start gap-8 sm:max-w-3xl grid-cols-1 md:grid-cols-2">
           {TestimonialsData.map((item) => (
             <div
               key={item.comment}
-              className="grid gap-4 border border-primary rounded-xl shadow"
+              className="grid gap-4 max-w-[24rem] border border-primary rounded-xl shadow"
             >
               <div className="rounded-xl bg-gray-100 p-4 dark:bg-gray-800">
                 <blockquote className="text-base font-semibold leading-relaxed">

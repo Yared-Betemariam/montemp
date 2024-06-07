@@ -13,7 +13,7 @@ import { useCurrentUser } from "@/hooks/user";
 import { FaSignOutAlt } from "react-icons/fa";
 import LogoutButton from "../auth/SignoutButton";
 import { Button } from "../ui/button";
-import { CreditCard, User } from "lucide-react";
+import { CreditCard, Mail, User } from "lucide-react";
 import { ModalWrapper } from "../ModelWrapper";
 import BillingComponent from "../dashboard/BillingComponent";
 import Link from "next/link";
@@ -50,7 +50,11 @@ const Account = () => {
           Profile Settings
         </DropdownMenuLabel>
         <DropdownMenuSeparator className="min-w-[14rem]" />
-        <DropdownMenuLabel className="min-w-[14rem] font-semibold">
+        <DropdownMenuLabel className="min-w-[14rem] font-semibold space-x-2 flex items-center p-1">
+          <User
+            size={32}
+            className="bg-black/10 rounded-xl drop-shadow simpleborder p-1.5"
+          />
           <span className="text-semibold text-sm">{user.email}</span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator className="min-w-[14rem]" />

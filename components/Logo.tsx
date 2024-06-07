@@ -23,7 +23,7 @@ const Logo = ({
           l
             ? lo
               ? "w-20"
-              : " w-64"
+              : " w-52 md:w-64"
             : s
             ? lo
               ? " w-10"

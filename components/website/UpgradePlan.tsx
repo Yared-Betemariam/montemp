@@ -12,10 +12,12 @@ const UpgradePlan = ({
   plan,
   text,
   simple,
+  disabled,
 }: {
   plan: (typeof pricingPlan)[0];
   text?: string;
   simple?: boolean;
+  disabled?: boolean;
 }) => {
   const { user } = useCurrentUser();
   const [isPending, startTransition] = useTransition();
@@ -37,6 +39,7 @@ const UpgradePlan = ({
         plan.price <= 0 ? (
           <Link href={"/auth/sign-in"}>
             <Button
+              disabled={disabled}
               size={simple ? "default" : "lg"}
               className={cn(
                 "drop-shadow-md  w-full",
@@ -48,7 +51,7 @@ const UpgradePlan = ({
           </Link>
         ) : (
           <Button
-            disabled={isPending}
+            disabled={isPending || disabled}
             onClick={() => handleUpgrade()}
             size={simple ? "default" : "lg"}
             className={cn(
@@ -66,6 +69,7 @@ const UpgradePlan = ({
       ) : (
         <Link href={"/auth/sign-in"}>
           <Button
+            disabled={disabled}
             size={simple ? "default" : "lg"}
             className={cn(
               "drop-shadow-md  w-full",

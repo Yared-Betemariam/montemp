@@ -7,7 +7,7 @@ const Social = () => {
     <Button
       variant={"outline"}
       onClick={() => sign_in_google()}
-      className="space-x-4 w-full bg-white/80 h-12 simpleborder rounded-full"
+      className="space-x-4 w-full bg-white/80 h-[2.75rem] simpleborder rounded-full"
     >
       <FcGoogle size={17} />
       <span>Continue with Google</span>

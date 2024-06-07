@@ -1,4 +1,4 @@
-import { useUserPlan } from "@/hooks/user";
+import { useCurrentUser, useUserPlan } from "@/hooks/user";
 import { useUserSubscriptionPlan } from "@/store";
 import { CrownIcon } from "lucide-react";
 import { ModalWrapper } from "../ModelWrapper";
@@ -6,15 +6,12 @@ import { Button } from "../ui/button";
 import Pricing from "../website/Pricing";
 
 const UpgradeModal = () => {
-  const planId = useUserPlan();
-  const isLoading = useUserSubscriptionPlan.getState().isLoading;
+  const { isLoading } = useCurrentUser();
   if (isLoading) {
     return (
       <div className="animate-pulse h-10 w-24 rounded-xl bg-black/10"></div>
     );
   }
-  if (planId.startsWith("oneTimePayment")) return null;
-
   return (
     <ModalWrapper
       className="min-w-[50rem] bg-transparent shadow-none p-0 rounded-none border-none"

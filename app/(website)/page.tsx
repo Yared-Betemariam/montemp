@@ -11,10 +11,10 @@ export default async function Home() {
     <main className="flex flex-col flex-1">
       <section className="wrapper py-12 flex gap-12 items-center">
         <div className="flex flex-col gap-6 flex-1 justify-center items-center">
-          <div className="text-6xl font-bold flex flex-col text-center items-center justify-center max-w-[700px]">
+          <div className="text-5xl md:text-6xl font-bold flex flex-col text-center items-center justify-center max-w-[700px]">
             <h1 className="flex gap-6">
               <span>The Best</span>
-              <p className="bg-primary p-2 shadow text-gray-200 text-[3.35rem] rotate-2 px-4">
+              <p className="bg-primary p-2 shadow text-gray-200 text-[2.8rem] md:text-[3.35rem] rotate-2 px-4">
                 NextJs
               </p>
             </h1>
@@ -58,7 +58,7 @@ export default async function Home() {
         <span className="text-lg opacity-70">
           get started making good email right now
         </span>
-        <Link href={"/auth/sign-up"}>
+        <Link href={"/auth/sign-in"}>
           <Button size={"lg"} className="rounded-xl text-base">
             Get started
           </Button>

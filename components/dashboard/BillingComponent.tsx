@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { Button } from "../ui/button";
 import UpgradeModal from "./UpgradeModal";
 import UpgradePlan from "../website/UpgradePlan";
+import StartPaying from "../website/StartPaying";
 
 const BillingComponent = () => {
   const {
@@ -16,22 +17,6 @@ const BillingComponent = () => {
   } = useUserSubscriptionPlan((state) => state);
   const subscriptionPlan = rawPlan?.plan;
   const planStatus = rawPlan?.planStatus;
-  const BILLING_PORTAL =
-    "https://billing.stripe.com/p/login/test_3cs9Dl4duaut00M000";
-
-  //   const [isPending, startTransition] = useTransition();
-  // const router = useRouter();
-  // const handleUpgrade = () => {
-  //   startTransition(() => {
-  //     createStripeSession(plan)
-  //       .then((data) => {
-  //         if (data?.url) {
-  //           router.push(data.url);
-  //         }
-  //       })
-  //       .catch((error) => console.log(error));
-  //   });
-  // };
 
   useEffect(() => {
     updateSubscriptionPlan();
@@ -39,16 +24,18 @@ const BillingComponent = () => {
   }, []);
   return (
     <section className="wrapper py-4 flex flex-col gap-6">
-      <div className="flex flex-col">
-        <h2 className="text-xl font-semibold">Billing</h2>
-        <p className="text-base opacity-80">
-          Manage your subscription plans and payments
-        </p>
-      </div>
+      {!isLoading && subscriptionPlan && (
+        <div className="flex flex-col">
+          <h2 className="text-xl font-semibold">Billing</h2>
+          <p className="text-base opacity-80">
+            Manage your subscription plans and payments
+          </p>
+        </div>
+      )}
       {isLoading && (
         <div className="flex flex-col items-center justify-center py-24 gap-3 opacity-60">
           <Loader2 className="animate-spin" size={32} />
-          <span className="text-sm">Getting user information</span>
+          <span className="text-sm">Getting your billing information</span>
         </div>
       )}
       {!isLoading && subscriptionPlan && (
@@ -99,6 +86,7 @@ const BillingComponent = () => {
           </div>
         </>
       )}
+      {!isLoading && !subscriptionPlan && <StartPaying />}
     </section>
   );
 };
