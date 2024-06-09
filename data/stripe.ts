@@ -22,12 +22,7 @@ export const getUserSubscriptionPlan = async (id: string) =>
     //   };
     // }
 
-    const dbUser = await Users.findById(id)
-      .select(
-        "stripeCustomerId email planId stripePriceId stripeSubscriptionId stripeCurrentPeriodEnd"
-      )
-      .lean<User>()
-      .exec();
+    const dbUser = await Users.findById(id).lean<User>().exec();
     console.log("got user");
 
     if (!dbUser) {
