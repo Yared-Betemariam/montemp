@@ -62,7 +62,6 @@ export const pricingPlan = [
       "Unlimited Projects",
       "Unlimited Templates",
       "Full customization ability",
-      // "100 test email sends per month",
     ],
   },
   {
@@ -81,7 +80,6 @@ export const pricingPlan = [
       "Unlimited Templates",
       "Full customization ability",
       "Only pay once",
-      // "100 test email sends per month",
     ],
   },
 ];

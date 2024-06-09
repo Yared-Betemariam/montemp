@@ -20,8 +20,6 @@ export async function connectDB(): Promise<mongoose.Mongoose> {
 
   if (!cached.promise) {
     const opts: ConnectOptions = {
-      // useNewUrlParser: true,
-      // useUnifiedTopology: true,
       bufferCommands: false,
     };
 

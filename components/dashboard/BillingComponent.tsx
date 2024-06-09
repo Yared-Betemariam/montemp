@@ -37,7 +37,7 @@ const BillingComponent = () => {
         </div>
       )}
       {isLoading && (
-        <div className="flex flex-col items-center justify-center py-24 gap-3 opacity-60">
+        <div className="flex flex-col items-center justify-center py-28 gap-3 opacity-60">
           <Loader2 className="animate-spin" size={32} />
           <span className="text-sm">
             {isUserLoading

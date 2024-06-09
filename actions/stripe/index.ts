@@ -5,28 +5,20 @@ import { getUserSubscriptionPlan } from "@/data/stripe";
 import { pricingPlan } from "@/data/website";
 import { stripe } from "@/lib/stripe";
 
-const addQueryToUrl = (url: string, query: string, data?: string) => {
-  if (!data) return url;
-  return `${url}?${query}=${data}`;
-};
-
 export const createStripeSession = async (
   id: string,
   plan: (typeof pricingPlan)[0]
 ) => {
-  console.log(id, plan);
   const billingUrl = absoulteUrl("/dashboard/billing");
   const { planStatus: subscriptionPlan, user } = await getUserSubscriptionPlan(
     id
   );
 
-  console.log("stripe");
   if (subscriptionPlan?.isSubscribed && user?.stripeCustomerId) {
     const stripeSession = await stripe.billingPortal.sessions.create({
       customer: user.stripeCustomerId,
       return_url: billingUrl,
     });
-    console.log("stripe end");
 
     return {
       url: stripeSession.url,
@@ -34,7 +26,6 @@ export const createStripeSession = async (
   }
 
   if (plan.id.startsWith("oneTimePayment")) {
-    console.log("stripe");
     const stripeSession = await stripe.checkout.sessions.create({
       success_url: billingUrl,
       cancel_url: billingUrl,
@@ -52,13 +43,11 @@ export const createStripeSession = async (
         userId: String(user?._id),
       },
     });
-    console.log("stripe end");
     return {
       url: stripeSession.url,
     };
   }
   if (plan.id.startsWith("subscription")) {
-    console.log("stripe");
     const stripeSession = await stripe.checkout.sessions.create({
       success_url: billingUrl,
       cancel_url: billingUrl,
@@ -76,11 +65,8 @@ export const createStripeSession = async (
         userId: String(user?._id),
       },
     });
-    console.log("stripeend");
     return {
       url: stripeSession.url,
     };
   }
 };
-
-// export const createBillingPortal

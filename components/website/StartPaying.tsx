@@ -2,7 +2,7 @@ import Pricing from "./Pricing";
 
 const StartPaying = () => {
   return (
-    <div className="flex flex-col max-w-3xl mx-auto py-6 gap-4">
+    <div className="flex flex-col max-w-[45rem] mx-auto py-6 gap-4">
       <div className="flex flex-col items-center justify-center space-y-2 text-center">
         <h2 className="text-4xl font-bold tracking-tighter">
           Choose your plan

@@ -59,19 +59,6 @@ const UpgradePlan = ({
           {!isPending && <ArrowRight size={16} />}
         </Button>
       ) : (
-        // <Link target="_blank" href={getFormattedaymentLink()}>
-        //   <Button
-        //     disabled={disabled}
-        //     size={simple ? "default" : "lg"}
-        //     className={cn(
-        //       "drop-shadow-md  w-full",
-        //       simple ? "rounded-xl space-x-2" : "rounded-full space-x-3"
-        //     )}
-        //   >
-        //     <span>Upgrade now</span>
-        //     <ArrowRight size={16} />
-        //   </Button>
-        // </Link>
         <Link href={"/auth/sign-in"}>
           <Button
             disabled={disabled}
