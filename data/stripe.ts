@@ -5,26 +5,25 @@ import { pricingPlan as PLANS, pricingPlan } from "@/data/website";
 import { stripe } from "@/lib/stripe";
 import Users, { User } from "@/mongoose/models/user";
 
-export const getUserSubscriptionPlan = async () =>
+export const getUserSubscriptionPlan = async (id: string) =>
   // PLAN?: (typeof pricingPlan)[0]
   {
-    console.log("start");
-    const authSession = await auth();
-    console.log("auths");
+    // console.log("start");
+    // const authSession = await auth();
+    // console.log("auths")
+    // if (!authSession?.user.id) {
+    //   return {
+    //     planStatus: {
+    //       isSubscribed: false,
+    //       isCanceled: false,
+    //       stripeCurrentPeriodEnd: null,
+    //     },
+    //   };
+    // }
 
-    if (!authSession?.user.id) {
-      return {
-        planStatus: {
-          isSubscribed: false,
-          isCanceled: false,
-          stripeCurrentPeriodEnd: null,
-        },
-      };
-    }
-
-    const dbUser = await Users.findById(authSession.user.id)
+    const dbUser = await Users.findById(id)
       .select(
-        "stripeCustomerId planId stripePriceId stripeSubscriptionId stripeCurrentPeriodEnd"
+        "stripeCustomerId email planId stripePriceId stripeSubscriptionId stripeCurrentPeriodEnd"
       )
       .lean<User>()
       .exec();
@@ -67,8 +66,8 @@ export const getUserSubscriptionPlan = async () =>
         isCanceled,
       },
       user: {
-        _id: String(authSession.user.id),
-        email: String(authSession.user.email),
+        _id: String(id),
+        email: String(dbUser.email),
         stripeSubscriptionId: dbUser.stripeSubscriptionId,
         stripeCurrentPeriodEnd: dbUser.stripeCurrentPeriodEnd,
         stripeCustomerId: dbUser.stripeCustomerId,

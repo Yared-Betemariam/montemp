@@ -6,7 +6,7 @@ interface subscriptionPlanStore {
   subscriptionPlan:
     | Awaited<ReturnType<typeof getUserSubscriptionPlan>>
     | undefined;
-  updateSubscriptionPlan: () => Promise<void>;
+  updateSubscriptionPlan: (userId: string) => Promise<void>;
   isLoading: boolean;
   error: string | null;
 }
@@ -15,10 +15,10 @@ export const useUserSubscriptionPlan = create<subscriptionPlanStore>((set) => ({
   subscriptionPlan: undefined,
   isLoading: true,
   error: null,
-  updateSubscriptionPlan: async () => {
+  updateSubscriptionPlan: async (userId: string) => {
     try {
       set({ isLoading: true });
-      const subscriptionPlan = await getUserSubscriptionPlan();
+      const subscriptionPlan = await getUserSubscriptionPlan(userId);
       set({ subscriptionPlan });
     } catch (error) {
       console.log(error);

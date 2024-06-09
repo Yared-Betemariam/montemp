@@ -8,6 +8,7 @@ import { Button } from "../ui/button";
 import UpgradeModal from "./UpgradeModal";
 import UpgradePlan from "../website/UpgradePlan";
 import StartPaying from "../website/StartPaying";
+import { useCurrentUser } from "@/hooks/user";
 
 const BillingComponent = () => {
   const {
@@ -17,9 +18,10 @@ const BillingComponent = () => {
   } = useUserSubscriptionPlan((state) => state);
   const subscriptionPlan = rawPlan?.plan;
   const planStatus = rawPlan?.planStatus;
+  const { user } = useCurrentUser();
 
   useEffect(() => {
-    updateSubscriptionPlan();
+    updateSubscriptionPlan(user?.id as string);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

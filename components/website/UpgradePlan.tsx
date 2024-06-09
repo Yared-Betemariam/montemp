@@ -24,7 +24,7 @@ const UpgradePlan = ({
   const router = useRouter();
   const handleUpgrade = () => {
     startTransition(() => {
-      createStripeSession(plan)
+      createStripeSession(user?.id as string, plan)
         .then((data) => {
           if (data?.url) {
             router.push(data.url);

@@ -10,10 +10,14 @@ const addQueryToUrl = (url: string, query: string, data?: string) => {
   return `${url}?${query}=${data}`;
 };
 
-export const createStripeSession = async (plan: (typeof pricingPlan)[0]) => {
+export const createStripeSession = async (
+  id: string,
+  plan: (typeof pricingPlan)[0]
+) => {
   const billingUrl = absoulteUrl("/dashboard/billing");
-  const { planStatus: subscriptionPlan, user } =
-    await getUserSubscriptionPlan();
+  const { planStatus: subscriptionPlan, user } = await getUserSubscriptionPlan(
+    id
+  );
 
   console.log("stripe");
   if (subscriptionPlan?.isSubscribed && user?.stripeCustomerId) {
