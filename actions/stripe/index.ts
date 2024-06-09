@@ -15,11 +15,13 @@ export const createStripeSession = async (plan: (typeof pricingPlan)[0]) => {
   const { planStatus: subscriptionPlan, user } =
     await getUserSubscriptionPlan();
 
+  console.log("stripe");
   if (subscriptionPlan?.isSubscribed && user?.stripeCustomerId) {
     const stripeSession = await stripe.billingPortal.sessions.create({
       customer: user.stripeCustomerId,
       return_url: billingUrl,
     });
+    console.log("stripe end");
 
     return {
       url: stripeSession.url,
@@ -27,6 +29,7 @@ export const createStripeSession = async (plan: (typeof pricingPlan)[0]) => {
   }
 
   if (plan.id.startsWith("oneTimePayment")) {
+    console.log("stripe");
     const stripeSession = await stripe.checkout.sessions.create({
       success_url: billingUrl,
       cancel_url: billingUrl,
@@ -44,11 +47,13 @@ export const createStripeSession = async (plan: (typeof pricingPlan)[0]) => {
         userId: String(user?._id),
       },
     });
+    console.log("stripe end");
     return {
       url: stripeSession.url,
     };
   }
   if (plan.id.startsWith("subscription")) {
+    console.log("stripe");
     const stripeSession = await stripe.checkout.sessions.create({
       success_url: billingUrl,
       cancel_url: billingUrl,
@@ -66,6 +71,7 @@ export const createStripeSession = async (plan: (typeof pricingPlan)[0]) => {
         userId: String(user?._id),
       },
     });
+    console.log("stripeend");
     return {
       url: stripeSession.url,
     };

@@ -8,6 +8,7 @@ import Users, { User } from "@/mongoose/models/user";
 export const getUserSubscriptionPlan = async () =>
   // PLAN?: (typeof pricingPlan)[0]
   {
+    console.log("start");
     const authSession = await auth();
 
     if (!authSession?.user.id) {
@@ -46,13 +47,14 @@ export const getUserSubscriptionPlan = async () =>
     );
 
     let isCanceled = false;
-
+    console.log("stripe");
     if (isSubscribed && dbUser.stripeSubscriptionId) {
       const stripePlan = await stripe.subscriptions.retrieve(
         dbUser.stripeSubscriptionId
       );
       isCanceled = stripePlan.cancel_at_period_end;
     }
+    console.log("stripe end");
 
     return {
       plan: PLAN,
