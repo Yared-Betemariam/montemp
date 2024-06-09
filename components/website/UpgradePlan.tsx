@@ -5,7 +5,7 @@ import { ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
 import { cn } from "@/lib/utils";
 
 const UpgradePlan = ({
@@ -33,40 +33,45 @@ const UpgradePlan = ({
         .catch((error) => console.log(error));
     });
   };
+  const getFormattedaymentLink = () => {
+    return `${
+      (plan?.paymentLink?.toString() +
+        "?prefilled_email=" +
+        user?.email) as string
+    }`;
+  };
   return (
     <div className="mb-3 ">
-      {user ? (
-        plan.price <= 0 ? (
-          <Link href={"/auth/sign-in"}>
-            <Button
-              disabled={disabled}
-              size={simple ? "default" : "lg"}
-              className={cn(
-                "drop-shadow-md  w-full",
-                simple ? "rounded-xl" : "rounded-full"
-              )}
-            >
-              <span>Get started</span>
-            </Button>
-          </Link>
-        ) : (
-          <Button
-            disabled={isPending || disabled}
-            onClick={() => handleUpgrade()}
-            size={simple ? "default" : "lg"}
-            className={cn(
-              "drop-shadow-md  w-full",
-              simple ? "rounded-xl space-x-2" : "rounded-full space-x-3"
-            )}
-          >
-            {isPending && (
-              <Loader2 className="animate-spin opacity-80" size={17.5} />
-            )}
-            <span>{text || "Upgrade now"}</span>
-            {!isPending && <ArrowRight size={16} />}
-          </Button>
-        )
+      {user && plan.price > 0 ? (
+        <Button
+          disabled={isPending || disabled}
+          onClick={() => handleUpgrade()}
+          size={simple ? "default" : "lg"}
+          className={cn(
+            "drop-shadow-md  w-full",
+            simple ? "rounded-xl space-x-2" : "rounded-full space-x-3"
+          )}
+        >
+          {isPending && (
+            <Loader2 className="animate-spin opacity-80" size={17.5} />
+          )}
+          <span>{text || "Upgrade now"}</span>
+          {!isPending && <ArrowRight size={16} />}
+        </Button>
       ) : (
+        // <Link target="_blank" href={getFormattedaymentLink()}>
+        //   <Button
+        //     disabled={disabled}
+        //     size={simple ? "default" : "lg"}
+        //     className={cn(
+        //       "drop-shadow-md  w-full",
+        //       simple ? "rounded-xl space-x-2" : "rounded-full space-x-3"
+        //     )}
+        //   >
+        //     <span>Upgrade now</span>
+        //     <ArrowRight size={16} />
+        //   </Button>
+        // </Link>
         <Link href={"/auth/sign-in"}>
           <Button
             disabled={disabled}

@@ -14,6 +14,7 @@ export const createStripeSession = async (
   id: string,
   plan: (typeof pricingPlan)[0]
 ) => {
+  console.log(id, plan);
   const billingUrl = absoulteUrl("/dashboard/billing");
   const { planStatus: subscriptionPlan, user } = await getUserSubscriptionPlan(
     id

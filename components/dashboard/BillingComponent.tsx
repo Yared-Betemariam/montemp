@@ -18,12 +18,14 @@ const BillingComponent = () => {
   } = useUserSubscriptionPlan((state) => state);
   const subscriptionPlan = rawPlan?.plan;
   const planStatus = rawPlan?.planStatus;
-  const { user } = useCurrentUser();
+  const { isLoading: isUserLoading, user } = useCurrentUser();
 
   useEffect(() => {
+    if (!user?.id) return;
+    if (planStatus) return;
     updateSubscriptionPlan(user?.id as string);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
   return (
     <section className="wrapper py-4 flex flex-col gap-6">
       {!isLoading && subscriptionPlan && (
@@ -37,7 +39,11 @@ const BillingComponent = () => {
       {isLoading && (
         <div className="flex flex-col items-center justify-center py-24 gap-3 opacity-60">
           <Loader2 className="animate-spin" size={32} />
-          <span className="text-sm">Getting your billing information</span>
+          <span className="text-sm">
+            {isUserLoading
+              ? "Getting user information"
+              : "Getting your billing information"}
+          </span>
         </div>
       )}
       {!isLoading && subscriptionPlan && (
@@ -62,10 +68,16 @@ const BillingComponent = () => {
 
             {subscriptionPlan.id.startsWith("subscription") && (
               <div className="flex items-center justify-between">
+                {/* <Button
+                  className={"drop-shadow-md  w-full rounded-xl space-x-2"}
+                >
+                  <span>{"Manage subscriptions"}</span>
+                  <ArrowRight size={16} />
+                </Button> */}
                 <UpgradePlan
-                  plan={subscriptionPlan}
                   text="Manage Subscriptions"
                   simple
+                  plan={subscriptionPlan}
                 />
                 {planStatus?.isSubscribed && (
                   <p className="flex items-center gap-2 text-base opacity-80 font-normal justify-end py-3">

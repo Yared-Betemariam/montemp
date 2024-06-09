@@ -51,6 +51,7 @@ export const pricingPlan = [
     id: "subscription1",
     name: "Pro",
     price: 14,
+    paymentLink: "https://buy.stripe.com/test_14k0424V0cde5jy9AA",
     disCountPrice: 28,
     priceIds: {
       test: "price_1PNmsOIwT7blYDqOYdSL34eT",
@@ -69,6 +70,7 @@ export const pricingPlan = [
     name: "One time payment",
     price: 169,
     disCountPrice: 199,
+    paymentLink: "https://buy.stripe.com/test_eVa8Ay87ccdeeU8fYZ",
     priceIds: {
       test: "price_1POKcrIwT7blYDqOTGbK4yMp",
       production: "",
