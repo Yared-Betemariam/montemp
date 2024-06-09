@@ -29,23 +29,23 @@ export const TestimonialsData = [
 export const defaultPlanId: string = "free";
 
 export const pricingPlan = [
-  {
-    id: "free",
-    name: "Free",
-    price: 0,
-    disCountPrice: 0,
-    priceIds: {
-      test: "",
-      production: "",
-    },
-    desc: "Start with a taste of Customail",
-    features: [
-      "5 Projects",
-      "5 Templates",
-      "Full customization ability",
-      // "Send a test email functionality",
-    ],
-  },
+  // {
+  //   id: "free",
+  //   name: "Free",
+  //   price: 0,
+  //   disCountPrice: 0,
+  //   priceIds: {
+  //     test: "",
+  //     production: "",
+  //   },
+  //   desc: "Start with a taste of Customail",
+  //   features: [
+  //     "5 Projects",
+  //     "5 Templates",
+  //     "Full customization ability",
+  //     // "Send a test email functionality",
+  //   ],
+  // },
   {
     tag: "Popular",
     id: "subscription1",

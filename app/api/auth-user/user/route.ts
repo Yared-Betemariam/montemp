@@ -26,6 +26,7 @@ export const POST = async (req: NextRequest) => {
     if (!body.email) {
       return NextResponse.json({ message: "Invalid" }, { status: 400 });
     }
+    await connectDB();
     await Users.create({
       email: body.email,
       planId: defaultPlanId,
