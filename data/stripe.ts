@@ -8,6 +8,7 @@ import Users, { User } from "@/mongoose/models/user";
 export const getUserSubscriptionPlan = async (id: string) =>
   // PLAN?: (typeof pricingPlan)[0]
   {
+    console.log("starting");
     // console.log("start");
     // const authSession = await auth();
     // console.log("auths")
@@ -27,6 +28,7 @@ export const getUserSubscriptionPlan = async (id: string) =>
       )
       .lean<User>()
       .exec();
+    console.log("got user");
 
     if (!dbUser) {
       return {
