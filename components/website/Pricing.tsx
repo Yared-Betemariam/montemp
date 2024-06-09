@@ -93,7 +93,10 @@ const Pricing = ({ modal }: { modal?: boolean }) => {
                   </li>
                 ))}
               </ul>
-              <UpgradePlan disabled={planId == item.id} plan={item} />
+              <UpgradePlan
+                disabled={planId == item.id && planId !== "free"}
+                plan={item}
+              />
               {item.id.startsWith("oneTimePayment") && (
                 <span className="text-sm opacity-70 mx-auto">
                   Pay once. Access forever

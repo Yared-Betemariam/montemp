@@ -53,7 +53,7 @@ export default async function Home() {
       <Pricing />
       <Testimonials />
       <FAQ />
-      <section className="wrapper flex flex-col items-center justify-between gap-6 py-20">
+      <section className="wrapper flex flex-col items-center justify-between gap-4 py-20">
         <h1 className="text-5xl font-bold">Don't waste any more time</h1>
         <span className="text-lg opacity-70">
           get started making good email right now

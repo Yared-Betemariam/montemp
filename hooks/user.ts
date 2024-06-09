@@ -23,15 +23,14 @@ export const useHasUserPaid = () => {
 
   const planId = useUserPlan();
 
-  // const plan = getPlanByAmount(0);
-  // if (plan) return setRes(true);
-
   useEffect(() => {
     if (planId == "free") {
       setRes(false);
     } else {
       setRes(true);
     }
+    const plan = getPlanByAmount(0);
+    if (plan) return setRes(true);
   }, [planId]);
 
   return res;

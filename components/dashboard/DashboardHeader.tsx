@@ -13,7 +13,7 @@ const DashboardHeader = () => {
   return (
     <div
       className={cn(
-        " border-b border-gray-900/20 bg-neutral-50/40 flex items-center px-4 sm:px-6 h-[4.25rem]"
+        " border-b border-gray-900/20 bg-neutral-50/40 flex items-center px-4 sm:px-6 h-[3.8rem]"
       )}
     >
       <div className={`flex items-center justify-between flex-1`}>

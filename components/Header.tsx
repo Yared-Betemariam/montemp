@@ -36,7 +36,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className=" h-20 bg-neutral-50/15 border-b border-gray-950/[0.12]">
+    <header className=" h-[4.5rem] bg-neutral-50/15 border-b border-gray-950/[0.12]">
       <section className="wrapper h-full flex justify-between items-center">
         <div className="flex items-center gap-8">
           <Logo />
