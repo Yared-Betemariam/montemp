@@ -3,6 +3,7 @@
 import { auth } from "@/auth";
 import { pricingPlan as PLANS, pricingPlan } from "@/data/website";
 import { stripe } from "@/lib/stripe";
+import connectDB from "@/mongoose/db";
 import Users, { User } from "@/mongoose/models/user";
 
 export const getUserSubscriptionPlan = async (id: string) =>
@@ -24,6 +25,7 @@ export const getUserSubscriptionPlan = async (id: string) =>
     // }
     let dbUser;
     try {
+      await connectDB();
       dbUser = await Users.findById(id).lean<User>().exec();
       console.log("got user");
     } catch (error) {
