@@ -21,9 +21,13 @@ export const getUserSubscriptionPlan = async (id: string) =>
     //     },
     //   };
     // }
-
-    const dbUser = await Users.findById(id).lean<User>().exec();
-    console.log("got user");
+    let dbUser;
+    try {
+      dbUser = await Users.findById(id).lean<User>().exec();
+      console.log("got user");
+    } catch (error) {
+      console.log(error);
+    }
 
     if (!dbUser) {
       return {
