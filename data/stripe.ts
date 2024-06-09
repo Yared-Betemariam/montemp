@@ -10,6 +10,7 @@ export const getUserSubscriptionPlan = async () =>
   {
     console.log("start");
     const authSession = await auth();
+    console.log("auths");
 
     if (!authSession?.user.id) {
       return {
